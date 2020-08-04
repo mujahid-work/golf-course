@@ -1,0 +1,68 @@
+# Feature List
+
+├── Admin Portal
+    │
+    ├── Login
+    |
+    ├── Dashboard
+    │
+    ├── Item Categories
+    │   ├── Main Categories
+    │   └── Sub Categories
+    │
+    ├── Items
+    │
+    ├── Customers/App-users
+    │   ├── Customer Account Management
+    │   └── Customer Orders History
+    │
+    ├── Customer's Orders
+    │   ├── Submitted Orders
+    │   ├── Accepted Orders
+    │   ├── Ready Orders
+    │   ├── Serving Orders
+    │   ├── Completed Orders
+    │   └── Cancelled Order
+    │
+    ├── Seatings
+    |   ├── Areas
+    │   ├── Seat Types
+    │   └── Seats
+    |
+    └── My Account
+        ├── Update Profile
+        └── Update Password
+	
+	
+├── RestFul Apis For Mobile Application
+    │
+    ├── Login/Signup
+    │
+    ├── Seatings
+    │   ├── Fetch Active Areas
+    │   ├── Fetch Active Seat Types
+    │   └── Fetch Active Seats
+    |
+    ├── Item Categories
+    │   ├── Fetch Active Main Categories
+    │   └── Fetch Active SubCategories
+    │
+    ├── Items
+    │   ├── Fetch Active Items
+    │   └── Fetch Item details
+    │
+    ├── Cart
+    │   ├── Add item to cart
+    │   ├── Remove item from cart
+    │   ├── Update item quantity at checkout page in cart
+    │   ├── Fetch Current User Cart Items on checkout page
+    │   └── Empty User Cart on checkout page
+    │
+    └── Orders
+	    ├── Place/confirm order at checkout page
+	    ├── Fetch Current User Orders List
+	    ├── Fetch Status based Orders List
+	    ├── Fetch Area based Orders List
+	    ├── Fetch single order details
+	    ├── Cancel an order
+	    └── Re-order an existing order
