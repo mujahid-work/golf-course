@@ -37,7 +37,8 @@
                         'item_id' => $item->item_id,
                         'item_price' => $item->item_price,
                         'item_quantity' => $item->item_quantity,
-                        'item_total' => $item->item_total
+                        'item_total' => $item->item_total,
+                        'item_note' => $item->item_note
                     );
                 }
 
@@ -55,7 +56,82 @@
                         
                         $this->cart_m->emptyUserCart($user_id);
 
-                        $orders_data = $this->fetchCurrentUserOrders($user_id);
+                        $notification_data = array(
+                            'user_id' => $user_id,
+                            'order_no' => $order_no,
+                            'description' => 'I have placed an order by ID <br><b>'.$order_no.'</b>, please have a look.'
+                        );
+
+                        $this->addNotification($notification_data);
+
+                        return $order_no;
+                    }
+                    else{
+
+                        $this->removeSaleOrderData($order_no);
+
+                        
+                        return false;
+                    }
+                }
+                else{
+                    
+                    return false;
+                } 
+            }
+            
+            return false;
+        }
+
+        public function placeCourseOrder($user_id,$lat,$lang,$address,$area_id){
+
+            $is_cart_existed = $this->cart_m->fetchCurrentUserCartItems($user_id);
+
+            if(!empty($is_cart_existed)){
+
+                $sub_total = 0;
+                $grand_total = 0;
+                $sub_total = array_sum(array_column($is_cart_existed, 'item_total'));
+
+                $grand_total = $sub_total;
+                $order_no = 'ord-'.time();
+
+                $sales_order_data = array(
+                    'user_id' => $user_id,
+                    'area_id' => $area_id,
+                    'order_no' => $order_no,
+                    'sub_total' => $sub_total,
+                    'grand_total' => $grand_total,
+                    'order_status' => 'Submitted',
+                    'address' => $address,
+                    'latitude' => $lat,
+                    'longitude' => $lang
+                );
+
+                foreach ($is_cart_existed as $item) {
+                    $sales_order_items_data[] = array(
+                        'order_no' => $order_no,
+                        'item_id' => $item->item_id,
+                        'item_price' => $item->item_price,
+                        'item_quantity' => $item->item_quantity,
+                        'item_total' => $item->item_total,
+                        'item_note' => $item->item_note
+                    );
+                }
+
+                
+                $value = $this->db->insert('sales_order_tbl',$sales_order_data);
+
+                if($value == true){
+                    
+                    foreach ($sales_order_items_data as $sales_order_item) {
+                        
+                        $value1 = $this->db->insert('sales_order_items_tbl',$sales_order_item);
+                    }
+
+                    if($value1 == true){
+                        
+                        $this->cart_m->emptyUserCart($user_id);
 
                         $notification_data = array(
                             'user_id' => $user_id,
@@ -65,20 +141,96 @@
 
                         $this->addNotification($notification_data);
 
-                        return $orders_data;
+                        return $order_no;
                     }
                     else{
 
                         $this->removeSaleOrderData($order_no);
+
+                        
                         return false;
                     }
                 }
                 else{
-
+                    
                     return false;
                 } 
             }
+            
+            return false;
+        }
 
+        public function placeNotSittingOrder($user_id,$package){
+
+            $is_cart_existed = $this->cart_m->fetchCurrentUserCartItems($user_id);
+
+            if(!empty($is_cart_existed)){
+
+                $sub_total = 0;
+                $grand_total = 0;
+                $sub_total = array_sum(array_column($is_cart_existed, 'item_total'));
+
+                $grand_total = $sub_total;
+                $order_no = 'ord-'.time();
+
+                $sales_order_data = array(
+                    'user_id' => $user_id,
+                    'is_package' => $package,
+                    'order_no' => $order_no,
+                    'sub_total' => $sub_total,
+                    'grand_total' => $grand_total,
+                    'order_status' => 'Submitted'
+                );
+
+                foreach ($is_cart_existed as $item) {
+                    $sales_order_items_data[] = array(
+                        'order_no' => $order_no,
+                        'item_id' => $item->item_id,
+                        'item_price' => $item->item_price,
+                        'item_quantity' => $item->item_quantity,
+                        'item_total' => $item->item_total,
+                        'item_note' => $item->item_note
+                    );
+                }
+
+                
+                $value = $this->db->insert('sales_order_tbl',$sales_order_data);
+
+                if($value == true){
+                    
+                    foreach ($sales_order_items_data as $sales_order_item) {
+                        
+                        $value1 = $this->db->insert('sales_order_items_tbl',$sales_order_item);
+                    }
+
+                    if($value1 == true){
+                        
+                        $this->cart_m->emptyUserCart($user_id);
+
+                        $notification_data = array(
+                            'user_id' => $user_id,
+                            'order_no' => $order_no,
+                            'description' => 'I have placed an order by ID <br><b>'.$order_no.'</b>, please have a look.'
+                        );
+
+                        $this->addNotification($notification_data);
+
+                        return $order_no;
+                    }
+                    else{
+
+                        $this->removeSaleOrderData($order_no);
+
+                        
+                        return false;
+                    }
+                }
+                else{
+                    
+                    return false;
+                } 
+            }
+            
             return false;
         }
 
@@ -88,9 +240,11 @@
             $value=$this->db->delete('sales_order_tbl');
 
             if($value==true){
+                
                 return true;
             }
             else{
+                
                 return false;
             }
         }
@@ -99,38 +253,43 @@
 
             $this->db->select("sales_order_tbl.* , seat_types_tbl.seat_type_title , seat_types_tbl.seat_type_image , seats_tbl.seat_no , areas_tbl.area_title");
             $this->db->from('sales_order_tbl')
-                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id')
-                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id')
-                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id');
+                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id' , 'left')
+                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id' , 'left')
+                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id' , 'left');
             $this->db->where('sales_order_tbl.user_id',$user_id);
             $this->db->order_by("sales_order_tbl.id", "desc");
             $result = $this->db->get();
             $orders_data =  $result->result();
 
             if(!empty($orders_data)){
+                
                 return $orders_data;
             }
             else{
+                
                 return false;
             }
         }
 
-        public function fetchStatusBasedOrders($order_status){
+        public function fetchStatusBasedOrders($order_status,$area_id){
 
             $this->db->select("sales_order_tbl.* , seat_types_tbl.seat_type_title, seat_types_tbl.seat_type_image , seats_tbl.seat_no , areas_tbl.area_title");
             $this->db->from('sales_order_tbl')
-                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id')
-                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id')
-                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id');
-            $this->db->where('sales_order_tbl.order_status',$order_status);
+                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id' , 'left')
+                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id' , 'left')
+                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id' , 'left');
+                $this->db->where('sales_order_tbl.order_status',$order_status);
+                $this->db->where('sales_order_tbl.area_id',$area_id);
             $this->db->order_by("sales_order_tbl.id", "desc");
             $result = $this->db->get();
             $orders_data =  $result->result();
 
             if(!empty($orders_data)){
+                
                 return $orders_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -139,37 +298,40 @@
 
             $this->db->select("sales_order_tbl.* , seat_types_tbl.seat_type_title, seat_types_tbl.seat_type_image , seats_tbl.seat_no , areas_tbl.area_title");
             $this->db->from('sales_order_tbl')
-                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id')
-                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id')
-                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id');
+                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id' , 'left')
+                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id' , 'left')
+                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id' , 'left');
             $this->db->where('sales_order_tbl.area_id',$area_id);
             $this->db->order_by("sales_order_tbl.id", "desc");
             $result = $this->db->get();
             $orders_data =  $result->result();
 
             if(!empty($orders_data)){
+                
                 return $orders_data;
             }
             else{
+                
                 return false;
             }
         }
 
-        public function fetchSingleOrderDetails($user_id,$order_no){
-            $this->db->select("sales_order_tbl.* , seat_types_tbl.seat_type_title, seat_types_tbl.seat_type_image , seats_tbl.seat_no , areas_tbl.area_title");
+        public function fetchSingleOrderDetails($order_no){
+            $this->db->select("sales_order_tbl.* , seat_types_tbl.seat_type_title, seat_types_tbl.seat_type_image , seats_tbl.seat_no , areas_tbl.area_title , areas_tbl.area_image");
             $this->db->from('sales_order_tbl')
-                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id')
-                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id')
-                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id');
-            $this->db->where('sales_order_tbl.user_id',$user_id);
+                ->join('areas_tbl', 'areas_tbl.id = sales_order_tbl.area_id' , 'left')
+                ->join('seat_types_tbl', 'seat_types_tbl.id = sales_order_tbl.seat_type_id' , 'left')
+                ->join('seats_tbl', 'seats_tbl.id = sales_order_tbl.seat_id' , 'left');
             $this->db->where('sales_order_tbl.order_no',$order_no);
             $result = $this->db->get();
             $order_data =  $result->row();
 
             if(!empty($order_data)){
+                
                 return $order_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -177,16 +339,18 @@
         public function fetchSingleOrderItemsDetails($order_no){
             $this->db->select("sales_order_items_tbl.* , items_tbl.item_title , items_tbl.item_description , items_tbl.item_image");
             $this->db->from('sales_order_items_tbl')
-                ->join('items_tbl', 'sales_order_items_tbl.item_id = items_tbl.id');
+                ->join('items_tbl', 'sales_order_items_tbl.item_id = items_tbl.id' , 'left');
             $this->db->where('sales_order_items_tbl.order_no',$order_no);
             $this->db->order_by("sales_order_items_tbl.id", "desc");
             $result = $this->db->get();
             $order_items_data =  $result->result();
 
             if(!empty($order_items_data)){
+                
                 return $order_items_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -202,11 +366,11 @@
             $value=$this->db->update('sales_order_tbl',$data);
 
             if($value == true){
-
+                
                 return true;
             }
             else{
-
+                
                 return false;
             }
         }
@@ -246,7 +410,8 @@
                             'item_id' => $item->item_id,
                             'item_price' => $item->item_price,
                             'item_quantity' => $item->item_quantity,
-                            'item_total' => $item->item_total
+                            'item_total' => $item->item_total,
+                            'item_note' => $item->item_note
                         );
                         
                         $value1 = $this->db->insert('sales_order_items_tbl',$sales_order_items_data);
@@ -255,21 +420,24 @@
                     if($value1 == true){
 
                         $orders_data = $this->fetchCurrentUserOrders($user_id);
-
+                        
                         return $orders_data;
                     }
                     else{
 
                         $this->removeSaleOrderData($order_no);
+
+                        
                         return false;
                     }
                 }
                 else{
-
+                    
                     return false;
                 }
             }
             else{
+                
                 return false;
             }
         }
@@ -279,11 +447,51 @@
             $value = $this->db->insert('notifications_tbl' , $notification_data);
 
             if($value==true){
+                
                 return true;
             }
             else{
+                
+                return false;
+            }
+        }
+
+        public function updateOrderStatus($order_no,$order_status,$chef_id){
+
+            $data = array(
+                'order_status' => $order_status,
+                'chef_id' => $chef_id
+            );
+
+            $this->db->where('order_no',$order_no);
+            $value=$this->db->update('sales_order_tbl',$data);
+
+            if($value == true){
+                
+                return true;
+            }
+            else{
+                
+                return false;
+            }
+        }
+
+        public function updateOrderTime($order_no,$expected_time){
+
+            $data = array(
+                'expected_time' => $expected_time
+            );
+
+            $this->db->where('order_no',$order_no);
+            $value=$this->db->update('sales_order_tbl',$data);
+
+            if($value == true){
+                
+                return true;
+            }
+            else{
+                
                 return false;
             }
         }
     }
-?>

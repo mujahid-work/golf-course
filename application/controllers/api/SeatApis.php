@@ -33,6 +33,9 @@
                         foreach ($areas_data as $value) {
                             
                             $value->area_image = base_url().'uploads/'.$value->area_image;
+                            $area_timings_data = $this->seats_m->fetchAreaTimings($value->id);
+
+                            $value->area_timings = $area_timings_data;
                         }
     
                         $this->response(array(
@@ -147,10 +150,10 @@
         
                     if(!empty($seats_data)){
 
-                        foreach ($seats_data as $value) {
+                        // foreach ($seats_data as $value) {
                             
-                            $value->area_image = base_url().'uploads/'.$value->area_image;
-                        }
+                        //     $value->area_image = base_url().'uploads/'.$value->area_image;
+                        // }
     
                         $this->response(array(
                             "status" => 'success',

@@ -48,7 +48,7 @@
                             </select>
                             <?php echo form_error('area_field','<p class="text-danger mt-2">','</p>'); ?>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-7">
                                     <label >Seat Type Image</label>
@@ -58,7 +58,7 @@
                                     <img src="" id="output_image_add_seat_type"  onclick="$(#file).click()" style=" height: 150px; width: 150px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="card-footer">
@@ -129,7 +129,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Action</th>
-                                <th>Image</th>
+                                <!-- <th>Image</th> -->
                                 <th>Seat Type Title</th>
                                 <th>Seat Type Area</th>
                                 <th>Status</th>
@@ -168,9 +168,9 @@
                                                     }
                                                 ?>
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <img src="<?php echo base_url().'uploads/'.$seat_type->seat_type_image;?>" style=" height: 50px; width: 50px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
-                                            </td>
+                                            </td> -->
                                             <td><?php echo $seat_type->seat_type_title; ?></td>
                                             <td><?php echo $seat_type->area_title; ?></td>
                                             <td>
@@ -242,7 +242,7 @@
 
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-7">
                                         <label >Seat Type Image</label>
@@ -253,7 +253,7 @@
                                         <img src="" id="output_image_edit_seat_type"  onclick="$(#file).click()" style=" height: 150px; width: 150px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="seat_type_edit_btn" id="seat_type_edit_btn" class="btn btn-primary" value="Update Seat Type">

@@ -11,11 +11,11 @@
             $value=$this->db->insert('main_categories_tbl',$main_catg_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }
@@ -26,11 +26,11 @@
             $value=$this->db->update('main_categories_tbl',$main_catg_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }
@@ -45,9 +45,11 @@
             $main_active_catgs_data =  $result->result();
 
             if(!empty($main_active_catgs_data)){
+                
                 return $main_active_catgs_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -61,9 +63,11 @@
             $main_all_catgs_data =  $result->result();
 
             if(!empty($main_all_catgs_data)){
+                
                 return $main_all_catgs_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -81,6 +85,7 @@
                 return $sub_active_catgs_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -90,11 +95,11 @@
             $result = $this->db->update('main_categories_tbl',$data,array('id'=>$main_catg_id));
 
             if($result == true){
-
+                
                 return true;
             }
             else{
-
+                
                 return false;
             }
         }
@@ -104,11 +109,11 @@
             $result = $this->db->update('main_categories_tbl',$data,array('id'=>$main_catg_id));
 
             if($result == true){
-
+                
                 return true;
             }
             else{
-
+                
                 return false;
             }
         }
@@ -122,9 +127,11 @@
             $single_main_catg_data =  $result->row();
 
             if(!empty($single_main_catg_data)){
+                
                 return $single_main_catg_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -134,11 +141,11 @@
             $value=$this->db->insert('sub_categories_tbl',$sub_catg_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }
@@ -147,15 +154,17 @@
 
             $this->db->select("sub_categories_tbl.* , main_categories_tbl.main_catg_title");
             $this->db->from('sub_categories_tbl')
-                ->join('main_categories_tbl', 'sub_categories_tbl.main_catg_id = main_categories_tbl.id');
+                ->join('main_categories_tbl', 'sub_categories_tbl.main_catg_id = main_categories_tbl.id' , 'left');
             $this->db->order_by("sub_categories_tbl.id", "desc");
             $result = $this->db->get();
             $sub_all_catgs_data =  $result->result();
 
             if(!empty($sub_all_catgs_data)){
+                
                 return $sub_all_catgs_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -170,9 +179,11 @@
             $sub_active_catgs_data =  $result->result();
 
             if(!empty($sub_active_catgs_data)){
+                
                 return $sub_active_catgs_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -182,11 +193,11 @@
             $result = $this->db->update('sub_categories_tbl',$data,array('id'=>$sub_catg_id));
 
             if($result == true){
-
+                
                 return true;
             }
             else{
-
+                
                 return false;
             }
         }
@@ -196,11 +207,11 @@
             $result = $this->db->update('sub_categories_tbl',$data,array('id'=>$sub_catg_id));
 
             if($result == true){
-
+                
                 return true;
             }
             else{
-
+                
                 return false;
             }
         }
@@ -214,9 +225,11 @@
             $single_sub_catg_data =  $result->row();
 
             if(!empty($single_sub_catg_data)){
+                
                 return $single_sub_catg_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -227,11 +240,11 @@
             $value=$this->db->update('sub_categories_tbl',$sub_catg_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }

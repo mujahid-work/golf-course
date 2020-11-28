@@ -11,7 +11,16 @@
             $this->db->from('users_tbl');
             $this->db->where($data);
             $result = $this->db->get();
-            return $result->row();
+            $user_data = $result->row();
+
+            if(!empty($user_data)){
+                
+                return $user_data;
+            }
+            else{
+                
+                return false;
+            }
         }
 
         public function checkExistedEmail($email) {
@@ -22,9 +31,11 @@
             $result = $this->db->get();
 
             if($result->num_rows() > 0){
+                
                 return true;
             }
             else{
+                
                 return false;
             }
         }
@@ -34,9 +45,11 @@
             $result = $this->db->insert('users_tbl',$data);
 
             if($result == true){
+                
                 return true;
             }
             else{
+                
                 return false;
             }
         }
@@ -48,9 +61,11 @@
             $result = $this->db->update('users_tbl');
             
             if($result == true){
+                
                 return true;
             }
             else{
+                
                 return false;
             }
         }
@@ -61,7 +76,64 @@
             $this->db->from('users_tbl');
             $this->db->where($data);
             $result = $this->db->get();
-            return $result->row();
+            $user_data = $result->row();
+
+            if(!empty($user_data)){
+                
+                return $user_data;
+            }
+            else{
+                
+                return false;
+            }
+        }
+
+        public function fetchUserProfile($user_id){
+
+            $this->db->select("*");
+            $this->db->from('users_tbl');
+            $this->db->where('id',$user_id);
+            $result = $this->db->get();
+            $user_data = $result->row();
+
+            if(!empty($user_data)){
+                
+                return $user_data;
+            }
+            else{
+                
+                return false;
+            }
+        }
+
+        public function updateUserProfile($user_id,$user_profile_data){
+
+            $this->db->where('id',$user_id);
+            $result = $this->db->update('users_tbl',$user_profile_data);
+
+            if($result == true){
+                
+                return true;
+            }
+            else{
+                
+                return false;
+            }
+        }
+
+        public function updateUserProfileImage($user_id,$user_image_data){
+
+            $this->db->where('id',$user_id);
+            $result = $this->db->update('users_tbl',$user_image_data);
+
+            if($result == true){
+                
+                return true;
+            }
+            else{
+                
+                return false;
+            }
         }
     }
 

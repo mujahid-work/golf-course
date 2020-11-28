@@ -15,9 +15,11 @@
             $total_submitted_orders =  $result->row();
 
             if(!empty($total_submitted_orders)){
+                
                 return $total_submitted_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -31,9 +33,11 @@
             $total_accepted_orders =  $result->row();
 
             if(!empty($total_accepted_orders)){
+                
                 return $total_accepted_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -47,9 +51,11 @@
             $total_ready_orders =  $result->row();
 
             if(!empty($total_ready_orders)){
+                
                 return $total_ready_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -63,9 +69,11 @@
             $total_serving_orders =  $result->row();
 
             if(!empty($total_serving_orders)){
+                
                 return $total_serving_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -79,9 +87,11 @@
             $total_completed_orders =  $result->row();
 
             if(!empty($total_completed_orders)){
+                
                 return $total_completed_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -95,9 +105,11 @@
             $total_cancelled_orders =  $result->row();
 
             if(!empty($total_cancelled_orders)){
+                
                 return $total_cancelled_orders;
             }
             else{
+                
                 return false;
             }
         }
@@ -110,9 +122,11 @@
             $total_users =  $result->row();
 
             if(!empty($total_users)){
+                
                 return $total_users;
             }
             else{
+                
                 return false;
             }
         }
@@ -125,9 +139,11 @@
             $total_items =  $result->row();
 
             if(!empty($total_items)){
+                
                 return $total_items;
             }
             else{
+                
                 return false;
             }
         }
@@ -140,9 +156,11 @@
             $total_seats =  $result->row();
 
             if(!empty($total_seats)){
+                
                 return $total_seats;
             }
             else{
+                
                 return false;
             }
         }
@@ -153,11 +171,11 @@
             $value=$this->db->update('admins_tbl',$admin_profile_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }
@@ -168,11 +186,11 @@
             $value=$this->db->update('admins_tbl',$password_data);
 
 			if($value==true){
-				$this->db->close();
+				
 				return true;
 			}
 			else{
-				$this->db->close();
+				
 				return false;
 			}
         }
@@ -185,9 +203,11 @@
             $admin_profile_data =  $result->row();
 
             if(!empty($admin_profile_data)){
+                
                 return $admin_profile_data;
             }
             else{
+                
                 return false;
             }
         }
@@ -198,9 +218,11 @@
             $value = $this->db->update('notifications_tbl' , $notification_data);
 
             if($value==true){
+                
                 return true;
             }
             else{
+                
                 return false;
             }
         }
@@ -209,17 +231,19 @@
 
             $this->db->select("notifications_tbl.* , users_tbl.full_name , sales_order_tbl.id as order_id");
             $this->db->from('notifications_tbl')
-                ->join('sales_order_tbl', 'sales_order_tbl.order_no=notifications_tbl.order_no')
-                ->join('users_tbl', 'users_tbl.id=notifications_tbl.user_id');
+                ->join('sales_order_tbl', 'sales_order_tbl.order_no=notifications_tbl.order_no' , 'left')
+                ->join('users_tbl', 'users_tbl.id=notifications_tbl.user_id' , 'left');
             $this->db->where("notifications_tbl.is_read", "No");
             $this->db->order_by("notifications_tbl.id", "desc");
             $result = $this->db->get();
             $notifications_data = $result->result();
 
             if(!empty($notifications_data)){
+                
                 return $notifications_data;
             }
             else{
+                
                 return false;
             }
         }

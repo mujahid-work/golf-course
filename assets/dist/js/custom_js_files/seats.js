@@ -72,7 +72,7 @@
             dataType:"json",
             success:function(data){
 
-                $('#editSeatModal').trigger("reset");
+                $('#editSeatForm').trigger("reset");
                 $('#editSeatModal').modal('show');
 
                 $('#'+seat_id+'seat_edit_link').show();
@@ -146,7 +146,7 @@
             dataType:"json",
             success:function(data){
 
-                $('#editSeatTypeModal').trigger("reset");
+                $('#editSeatTypeForm').trigger("reset");
                 $('#editSeatTypeModal').modal('show');
 
                 $('#'+seat_type_id+'seat_type_edit_link').show();
@@ -156,9 +156,9 @@
                 $('#seat_type_title_edit_field').val(data.single_seat_type_data.seat_type_title);
                 $('#area_edit_field').val(data.single_seat_type_data.area_id);
 
-                var image= base_url+'uploads/'+data.single_seat_type_data.seat_type_image;
-                $("#output_image_edit_seat_type").attr("src",image);
-                $('#seat_type_old_pic_field').val(data.single_seat_type_data.seat_type_image);
+                // var image= base_url+'uploads/'+data.single_seat_type_data.seat_type_image;
+                // $("#output_image_edit_seat_type").attr("src",image);
+                // $('#seat_type_old_pic_field').val(data.single_seat_type_data.seat_type_image);
             }
         })
     });
@@ -224,18 +224,33 @@
             dataType:"json",
             success:function(data){
 
-                $('#editAreaModal').trigger("reset");
+                $('#editAreaForm').trigger("reset");
                 $('#editAreaModal').modal('show');
 
                 $('#'+area_id+'area_edit_link').show();
                 $('#'+area_id+'area_edit_waiting').hide();
 
-                $('#id_field').val(data.single_area_data.id);
-                $('#area_title_edit_field').val(data.single_area_data.area_title);
+                $('#id_field').val(data.single_area_data[0].area_id);
+                $('#area_title_edit_field').val(data.single_area_data[0].area_title);
 
-                var image= base_url+'uploads/'+data.single_area_data.area_image;
-                $("#output_image_edit_area").attr("src",image);
-                $('#area_old_pic_field').val(data.single_area_data.area_image);
+                $('#monday_opening_edit_field').val(data.single_area_data[0].opening);
+                $('#monday_closing_edit_field').val(data.single_area_data[0].closing);
+                $('#tuesday_opening_edit_field').val(data.single_area_data[1].opening);
+                $('#tuesday_closing_edit_field').val(data.single_area_data[1].closing);
+                $('#wednesday_opening_edit_field').val(data.single_area_data[2].opening);
+                $('#wednesday_closing_edit_field').val(data.single_area_data[2].closing);
+                $('#thursday_opening_edit_field').val(data.single_area_data[3].opening);
+                $('#thursday_closing_edit_field').val(data.single_area_data[3].closing);
+                $('#friday_opening_edit_field').val(data.single_area_data[4].opening);
+                $('#friday_closing_edit_field').val(data.single_area_data[4].closing);
+                $('#saturday_opening_edit_field').val(data.single_area_data[5].opening);
+                $('#saturday_closing_edit_field').val(data.single_area_data[5].closing);
+                $('#sunday_opening_edit_field').val(data.single_area_data[6].opening);
+                $('#sunday_closing_edit_field').val(data.single_area_data[6].closing);
+
+                // var image= base_url+'uploads/'+data.single_area_data.area_image;
+                // $("#output_image_edit_area").attr("src",image);
+                // $('#area_old_pic_field').val(data.single_area_data.area_image);
             }
         })
     });

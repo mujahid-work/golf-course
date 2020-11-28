@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
@@ -6,29 +5,29 @@
                 <div class="card-header">
                     <h3 class="card-title">Add Area</h3>
                 </div>
-                <form enctype="multipart/form-data" action="<?php echo base_url()?>admin/Seats/addArea" method="POST">
+                <form enctype="multipart/form-data" action="<?php echo base_url() ?>admin/Seats/addArea" method="POST">
                     <div class="card-body">
                         <?php
-                            if(isset($_SESSION['area_add_err'])) {
+                        if (isset($_SESSION['area_add_err'])) {
                         ?>
-                                <div class="alert alert-danger"><?php echo $_SESSION['area_add_err'] ?></div>
-                        <?php 
-                            }
+                            <div class="alert alert-danger"><?php echo $_SESSION['area_add_err'] ?></div>
+                        <?php
+                        }
                         ?>
 
                         <?php
-                            if(isset($_SESSION['area_add_succ'])) {
+                        if (isset($_SESSION['area_add_succ'])) {
                         ?>
-                                <div class="alert alert-success"><?php echo $_SESSION['area_add_succ'] ?></div>
-                        <?php 
-                            }
+                            <div class="alert alert-success"><?php echo $_SESSION['area_add_succ'] ?></div>
+                        <?php
+                        }
                         ?>
                         <div class="form-group">
                             <label>Area Title</label>
                             <input type="text" name="area_title_field" id="area_title_field" class="form-control" placeholder="enter area title" value="<?php echo set_value('area_title_field'); ?>">
-                            <?php echo form_error('area_title_field','<p class="text-danger mt-2">','</p>'); ?>
+                            <?php echo form_error('area_title_field', '<p class="text-danger mt-2">', '</p>'); ?>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-7">
                                     <label >Area Image</label>
@@ -38,7 +37,103 @@
                                     <img src="" id="output_image_add_area"  onclick="$(#file).click()" style=" height: 150px; width: 150px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <fieldset class="form-control" style="height: auto;">
+                            <legend>Schedule</legend>
+                            <div id="style-1" class="scrollbar" style="height: 345px; overflow-x: hidden;overflow-y: scroll;">
+                                <div class="form-group">
+                                    <label>Monday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="monday_opening_field" id="monday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="monday_closing_field" id="monday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tuesday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="tuesday_opening_field" id="tuesday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="tuesday_closing_field" id="tuesday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Wednesday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="wednesday_opening_field" id="wednesday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="wednesday_closing_field" id="wednesday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Thursday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="thursday_opening_field" id="thursday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="thursday_closing_field" id="thursday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Friday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="friday_opening_field" id="friday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="friday_closing_field" id="friday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Saturday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="saturday_opening_field" id="saturday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="saturday_closing_field" id="saturday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sunday</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Opening</label>
+                                            <input type="time" name="sunday_opening_field" id="sunday_opening_field" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Closing</label>
+                                            <input type="time" name="sunday_closing_field" id="sunday_closing_field" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
 
                     <div class="card-footer">
@@ -57,51 +152,51 @@
                 <div class="card-body">
 
                     <?php
-                        if(isset($_SESSION['area_disable_err'])) {
+                    if (isset($_SESSION['area_disable_err'])) {
                     ?>
-                            <div class="alert alert-danger"><?php echo $_SESSION['area_disable_err'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-danger"><?php echo $_SESSION['area_disable_err'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <?php
-                        if(isset($_SESSION['area_disable_succ'])) {
+                    if (isset($_SESSION['area_disable_succ'])) {
                     ?>
-                            <div class="alert alert-success"><?php echo $_SESSION['area_disable_succ'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-success"><?php echo $_SESSION['area_disable_succ'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <?php
-                        if(isset($_SESSION['area_enable_err'])) {
+                    if (isset($_SESSION['area_enable_err'])) {
                     ?>
-                            <div class="alert alert-danger"><?php echo $_SESSION['area_enable_err'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-danger"><?php echo $_SESSION['area_enable_err'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <?php
-                        if(isset($_SESSION['area_enable_succ'])) {
+                    if (isset($_SESSION['area_enable_succ'])) {
                     ?>
-                            <div class="alert alert-success"><?php echo $_SESSION['area_enable_succ'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-success"><?php echo $_SESSION['area_enable_succ'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <?php
-                        if(isset($_SESSION['area_edit_err'])) {
+                    if (isset($_SESSION['area_edit_err'])) {
                     ?>
-                            <div class="alert alert-danger"><?php echo $_SESSION['area_edit_err'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-danger"><?php echo $_SESSION['area_edit_err'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <?php
-                        if(isset($_SESSION['area_edit_succ'])) {
+                    if (isset($_SESSION['area_edit_succ'])) {
                     ?>
-                            <div class="alert alert-success"><?php echo $_SESSION['area_edit_succ'] ?></div>
-                    <?php 
-                        }
+                        <div class="alert alert-success"><?php echo $_SESSION['area_edit_succ'] ?></div>
+                    <?php
+                    }
                     ?>
 
                     <table id="datatable" class="table table-bordered table-striped">
@@ -109,84 +204,100 @@
                             <tr>
                                 <th>#</th>
                                 <th>Action</th>
-                                <th>Image</th>
+                                <!-- <th>Image</th> -->
                                 <th>Area Title</th>
                                 <th>Area Seat Types</th>
+                                <th>Is Open</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <?php
-                                if(!empty($all_areas_data) && sizeof($all_areas_data) > 0){
-                                    $no=0;
-                                    foreach ($all_areas_data as $area) {
-                                        $no++;
+                            if (!empty($all_areas_data) && sizeof($all_areas_data) > 0) {
+                                $no = 0;
+                                foreach ($all_areas_data as $area) {
+                                    $no++;
                             ?>
-                                        <tr>
-                                            <td><?php echo $no; ?></td>
-                                            <td>
-                                                <a  data-toggle="modal" id="<?php echo $area->id; ?>" base_url="<?php echo base_url(); ?>" class="editArea text-success">
-                                                    <label class="text-primary" id="<?php echo $area->id.'area_edit_link'; ?>">Edit</label>
-                                                    <i class="fa fa-spinner fa-spin text-primary" style="font-size:18px; display: none;" id="<?php echo $area->id.'area_edit_waiting'; ?>"></i>
+                                    <tr>
+                                        <td><?php echo $no; ?></td>
+                                        <td>
+                                            <a data-toggle="modal" id="<?php echo $area->id; ?>" base_url="<?php echo base_url(); ?>" class="editArea text-success">
+                                                <label class="text-primary" id="<?php echo $area->id . 'area_edit_link'; ?>">Edit</label>
+                                                <i class="fa fa-spinner fa-spin text-primary" style="font-size:18px; display: none;" id="<?php echo $area->id . 'area_edit_waiting'; ?>"></i>
+                                            </a>
+                                            /
+                                            <?php
+                                            if ($area->area_status == 'Active') {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'admin/Seats/disableArea/' . $area->id; ?>" onclick="return confirm(' If you disable a area, seats types and seats associated to this area would not be shown on app. Are you sure to disable this Area?')">
+                                                    <label class="text-danger">Disable</label>
                                                 </a>
-                                                /
-                                                <?php 
-                                                    if($area->area_status=='Active'){
-                                                ?>
-                                                        <a href="<?php echo base_url().'admin/Seats/disableArea/'.$area->id; ?>" onclick="return confirm(' If you disable a area, seats types and seats associated to this area would not be shown on app. Are you sure to disable this Area?')">
-                                                            <label class="text-danger">Disable</label>
-                                                        </a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'admin/Seats/enableArea/' . $area->id; ?>" onclick="return confirm('Are you sure to enable this Area?')">
+                                                    <label class="text-success">Enable</label>
+                                                </a>
+                                            <?php
+                                            }
+                                            ?>
+                                            /
+                                            <?php
+                                            if ($area->is_open == 'Yes') {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'admin/Seats/closeArea/' . $area->id; ?>" onclick="return confirm('Are you sure to close this Area?')">
+                                                    <label class="text-danger">Close</label>
+                                                </a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'admin/Seats/openArea/' . $area->id; ?>" onclick="return confirm('Are you sure to open this Area?')">
+                                                    <label class="text-success">Open</label>
+                                                </a>
+                                            <?php
+                                            }
+                                            ?>
+                                        </td>
+                                        <!-- <td>
+                                                <img src="<?php echo base_url() . 'uploads/' . $area->area_image; ?>" style=" height: 50px; width: 50px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
+                                            </td> -->
+                                        <td><?php echo $area->area_title; ?></td>
+                                        <td>
+                                            <div style=" height: 70px; overflow: auto;">
                                                 <?php
-                                                    }
-                                                    else{
+                                                if (!empty($area_seat_types_data) && sizeof($area_seat_types_data) > 0) {
+                                                    foreach ($area_seat_types_data as $seat_type) {
+                                                        if ($seat_type->area_id == $area->id) {
                                                 ?>
-                                                        <a href="<?php echo base_url().'admin/Seats/enableArea/'.$area->id; ?>"onclick="return confirm('Are you sure to enable this Area?')">
-                                                            <label class="text-success">Enable</label>
-                                                        </a>
+                                                            <?php echo $seat_type->seat_type_title; ?> <label class="text-danger"> <strong> | </strong> </label>
                                                 <?php
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <img src="<?php echo base_url().'uploads/'.$area->area_image;?>" style=" height: 50px; width: 50px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
-                                            </td>
-                                            <td><?php echo $area->area_title; ?></td>
-                                            <td>
-                                                <div style=" height: 70px; overflow: auto;">
-                                                    <?php 
-                                                        if(!empty($area_seat_types_data) && sizeof($area_seat_types_data) > 0){
-                                                            foreach ($area_seat_types_data as $seat_type) {
-                                                                if($seat_type->area_id == $area->id){
-                                                    ?>
-                                                                    <?php echo $seat_type->seat_type_title; ?> <label class="text-danger"> <strong> | </strong> </label>   
-                                                    <?php
-                                                                }
-                                                            }
                                                         }
-                                                    ?>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?php 
-                                                    if($area->area_status=='Active'){
-                                                ?>
-                                                        <label class="text-success"><?php echo $area->area_status; ?></label>
-                                                <?php
                                                     }
-                                                    else{
+                                                }
                                                 ?>
-                                                        <label class="text-danger"><?php echo $area->area_status; ?></label>
-                                                <?php
-                                                    }
-                                                ?>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $area->is_open; ?></td>
+                                        <td>
+                                            <?php
+                                            if ($area->area_status == 'Active') {
+                                            ?>
+                                                <label class="text-success"><?php echo $area->area_status; ?></label>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <label class="text-danger"><?php echo $area->area_status; ?></label>
+                                            <?php
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
                             <?php
-                                    }
                                 }
+                            }
                             ?>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -197,9 +308,9 @@
 
 <!-- Edit Item Modal starts here -->
 
-    <div class="modal fade" id="editAreaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="editAreaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-body">
 
                 <div class="card card-primary">
@@ -217,7 +328,7 @@
                                 <input type="hidden" id="base_url_field" name="base_url_field" value="<?php echo base_url(); ?>">
                                 <input type="text" name="area_title_edit_field" id="area_title_edit_field" class="form-control" placeholder="enter area title" required>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-7">
                                         <label >Area Image</label>
@@ -228,7 +339,103 @@
                                         <img src="" id="output_image_edit_area"  onclick="$(#file).click()" style=" height: 150px; width: 150px; border-radius: 10px;" onerror="this.src='<?php echo base_url() ?>assets/dist/img/camera.png';">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <fieldset class="form-control" style="height: auto;">
+                                <legend>Schedule</legend>
+                                <div id="style-1" class="scrollbar" style="height: 345px; overflow-x: hidden;overflow-y: scroll;">
+                                    <div class="form-group">
+                                        <label>Monday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="monday_opening_edit_field" id="monday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="monday_closing_edit_field" id="monday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tuesday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="tuesday_opening_edit_field" id="tuesday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="tuesday_closing_edit_field" id="tuesday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Wednesday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="wednesday_opening_edit_field" id="wednesday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="wednesday_closing_edit_field" id="wednesday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Thursday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="thursday_opening_edit_field" id="thursday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="thursday_closing_edit_field" id="thursday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Friday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="friday_opening_edit_field" id="friday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="friday_closing_edit_field" id="friday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Saturday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="saturday_opening_edit_field" id="saturday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="saturday_closing_edit_field" id="saturday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sunday</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Opening</label>
+                                                <input type="time" name="sunday_opening_edit_field" id="sunday_opening_edit_field" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Closing</label>
+                                                <input type="time" name="sunday_closing_edit_field" id="sunday_closing_edit_field" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="area_edit_btn" id="area_edit_btn" class="btn btn-primary" value="Update Area">
@@ -237,8 +444,8 @@
                 </div>
 
             </div>
-            </div>
         </div>
     </div>
+</div>
 
 <!-- Edit Item Modal ends here -->

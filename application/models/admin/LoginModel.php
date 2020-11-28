@@ -14,9 +14,11 @@
             $admin_data =  $result->row();
 
             if(!empty($admin_data)){
+                
                 return $admin_data;
             }
             else{
+                
                 return false;
             }
         }

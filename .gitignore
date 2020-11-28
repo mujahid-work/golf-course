@@ -32,6 +32,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 # other folders
 #-------------------------
-# uploads
-# application/config/config.php
-# application/config/database.php
+uploads
+application/config/config.php
+application/config/database.php

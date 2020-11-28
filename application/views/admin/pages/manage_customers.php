@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">All <?php echo $page_title ?></h3>
+                    <h3 class="card-title">All Customers</h3>
                 </div>
                 <div class="card-body">
 
@@ -33,6 +33,7 @@
                                 <th>Full Name</th>
                                 <th>Email Address</th>
                                 <th>Phone Number</th>
+                                <th>Role</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -71,6 +72,7 @@
                                             <td><?php echo $customer->full_name; ?></td>
                                             <td><?php echo $customer->email; ?></td>
                                             <td><?php echo $customer->phone; ?></td>
+                                            <td><?php echo $customer->role; ?></td>
                                             <td>
                                                 <?php 
                                                     if($customer->status=='Active'){

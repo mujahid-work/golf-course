@@ -1,27 +1,48 @@
-
 <div class="container-fluid">
     <div class="row">
-
-        <div class="col-md-12">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">All <?php echo $page_title ?></h3>
+        <div class="col-md-4">
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <h1 class="profile-username text-center">
+                        <b>
+                            <?php echo $chef_data->full_name; ?>
+                        </b>
+                    </h1>
+                    <p class="text-muted text-center"><?php echo $chef_data->email; ?></p>
+                    <p class="text-muted text-center"><?php echo $chef_data->phone; ?></p>
+                    <p class="text-muted text-center">
+                        <?php 
+                            if($chef_data->status == 'Active'){
+                        ?>
+                                <label class="text-success"><?php echo $chef_data->status; ?></label>
+                        <?php
+                            }
+                            else{
+                        ?>
+                                <label class="text-success"><?php echo $chef_data->status; ?></label>
+                        <?php
+                            }
+                        ?>
+                    </p>
                 </div>
-                <div class="card-body">
-
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card card-primary card-outline">
+                <div class="card-header p-2"> <h3 class="profile-username text-center">Chef Assigned Orders List</h3> </div>
+                <div class="card-body box-profile">
                     <table id="datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Action</th>
-                                <th>Submitted By</th>
                                 <th>Order No</th>
                                 <th>Area</th>
                                 <th>Seat Place</th>
                                 <th>Seat No</th>
-                                <th>Location</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
+                                <th>Location</th>
                                 <th>Status</th>
                                 <th>Date Submitted</th>
                                 <th>Sub Total</th>
@@ -31,11 +52,10 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
-                                if(!empty($orders_data) && sizeof($orders_data) > 0){
+                                if(!empty($chef_orders) && sizeof($chef_orders) > 0){
                                     $no=0;
-                                    foreach ($orders_data as $order) {
+                                    foreach ($chef_orders as $order) {
                                         $no++;
                             ?>
                                         <tr>
@@ -45,14 +65,13 @@
                                                     <label class="text-info">View Details</label>
                                                 </a>
                                             </td>
-                                            <td><?php echo $order->full_name; ?></td>
                                             <td><?php echo $order->order_no; ?></td>
                                             <td><?php echo $order->area_title; ?></td>
                                             <td><?php echo $order->seat_type_title; ?></td>
                                             <td><?php echo $order->seat_no; ?></td>
-                                            <td><?php echo $order->address; ?></td>
                                             <td><?php echo $order->latitude; ?></td>
                                             <td><?php echo $order->longitude; ?></td>
+                                            <td><?php echo $order->address; ?></td>
                                             <td><?php echo $order->order_status; ?></td>
                                             <td>
                                                 <?php 
@@ -74,7 +93,6 @@
                                     }
                                 }
                             ?>
-                            
                         </tbody>
                     </table>
                 </div>

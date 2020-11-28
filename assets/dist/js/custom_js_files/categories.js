@@ -71,7 +71,7 @@ function preview_image_edit_sub_catg(event) {
             dataType:"json",
             success:function(data){
 
-                $('#editMainCatgModal').trigger("reset");
+                $('#editMainCatgForm').trigger("reset");
                 $('#editMainCatgModal').modal('show');
 
                 $('#'+main_catg_id+'main_catg_edit_link').show();
@@ -148,7 +148,7 @@ function preview_image_edit_sub_catg(event) {
             dataType:"json",
             success:function(data){
 
-                $('#editSubCatgModal').trigger("reset");
+                $('#editSubCatgForm').trigger("reset");
                 $('#editSubCatgModal').modal('show');
 
                 $('#'+sub_catg_id+'sub_catg_edit_link').show();

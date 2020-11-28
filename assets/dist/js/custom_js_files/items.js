@@ -32,7 +32,7 @@ function preview_image_edit_item(event) {
 
         item_id = $(this).attr('id');
         base_url = $(this).attr('base_url');
-        debugger
+        
         $('#'+item_id+'item_edit_link').hide();
         $('#'+item_id+'item_edit_waiting').show();
 
@@ -45,7 +45,7 @@ function preview_image_edit_item(event) {
             dataType:"json",
             success:function(data){
 
-                $('#editItemModal').trigger("reset");
+                $('#editItemForm').trigger("reset");
                 $('#editItemModal').modal('show');
 
                 $('#'+item_id+'item_edit_link').show();

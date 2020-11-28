@@ -3,20 +3,18 @@
 
     require APPPATH.'libraries/REST_Controller.php';
 
-    class ItemApis extends REST_Controller {
+    class EventApis extends REST_Controller {
 
         public function __construct() {
             parent::__construct();
             
-            $this->load->model('apis/ItemsModel', 'items_m');
+            $this->load->model('apis/EventsModel', 'events_m');
             $this->load->model('apis/UsersModel', 'users_m');
         }
 
-        public function fetch_active_items_post(){ //tested and working fine
+        public function fetch_active_events_post(){ //tested and working fine
 
             $tokken = $this->post('tokken');
-            $sub_catg_id = $this->post('sub_catg_id');
-            $main_catg_id = $this->post('main_catg_id');
 
             if(!empty($tokken)){
 
@@ -28,19 +26,19 @@
         
                 if(!empty($user_data)){
         
-                    $items_data = $this->items_m->fetchActiveItems($sub_catg_id,$main_catg_id);
+                    $events_data = $this->events_m->fetchActiveEvents();
         
-                    if(!empty($items_data)){
+                    if(!empty($events_data)){
 
-                        foreach ($items_data as $value) {
+                        foreach ($events_data as $value) {
                             
-                            $value->item_image = base_url().'uploads/'.$value->item_image;
+                            $value->event_image = base_url().'uploads/'.$value->event_image;
                         }
     
                         $this->response(array(
                             "status" => 'success',
-                            "message" => "Items fetched successfully.",
-                            'data' => $items_data
+                            "message" => "Events data fetched successfully.",
+                            'data' => $events_data
                           ), REST_Controller::HTTP_OK
                         );
                     }
@@ -71,9 +69,10 @@
             }
         }
 
-        public function fetch_items_post(){ //tested and working fine
+        public function fetch_single_event_post(){ //tested and working fine
 
             $tokken = $this->post('tokken');
+            $event_id = $this->post('event_id');
 
             if(!empty($tokken)){
 
@@ -85,74 +84,16 @@
         
                 if(!empty($user_data)){
         
-                    $items_data = $this->items_m->fetchItems();
+                    $event_data = $this->events_m->fetchEventDetails($event_id);
         
-                    if(!empty($items_data)){
-
-                        foreach ($items_data as $value) {
+                    if(!empty($event_data)){
                             
-                            $value->item_image = base_url().'uploads/'.$value->item_image;
-                        }
+                        $event_data->event_image = base_url().'uploads/'.$event_data->event_image;
     
                         $this->response(array(
                             "status" => 'success',
-                            "message" => "Items fetched successfully.",
-                            'data' => $items_data
-                          ), REST_Controller::HTTP_OK
-                        );
-                    }
-                    else{
-    
-                        $this->response(array(
-                            "status" => 'fail',
-                            "message" => "Either no data found or something went wrong, please try again."
-                          ), REST_Controller::HTTP_INTERNAL_SERVER_ERROR
-                        );
-                    }                
-                }
-                else{
-    
-                    $this->response(array(
-                        "status" => 'fail',
-                        "message" => "Invalid tokken, Please try again."
-                      ), REST_Controller::HTTP_INTERNAL_SERVER_ERROR
-                    );
-                }
-            }else{
-
-                $this->response(array(
-                    "status" => 'fail',
-                    "message" => "Please provide a tokken."
-                  ), REST_Controller::HTTP_INTERNAL_SERVER_ERROR
-                );
-            }
-        }
-
-        public function fetch_item_details_post(){ //tested and working fine
-
-            $tokken = $this->post('tokken');
-            $item_id = $this->post('item_id');
-
-            if(!empty($tokken)){
-
-                $data = array(
-                    'tokken' => $tokken
-                );
-        
-                $user_data = $this->users_m->validateUserTokken($data);
-        
-                if(!empty($user_data)){
-        
-                    $item_data = $this->items_m->fetchItemDetails($item_id);
-        
-                    if(!empty($item_data)){
-                            
-                        $item_data->item_image = base_url().'uploads/'.$item_data->item_image;
-    
-                        $this->response(array(
-                            "status" => 'success',
-                            "message" => "Item Details fetched successfully.",
-                            'data' => $item_data
+                            "message" => "Event Details fetched successfully.",
+                            'data' => $event_data
                           ), REST_Controller::HTTP_OK
                         );
                     }
@@ -183,3 +124,4 @@
             }
         }
     }
+?>
